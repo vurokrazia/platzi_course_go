@@ -69,7 +69,6 @@ func main() {
 			t1, t2,
 		},
 	}
-
 	list.addTaskToLisk(t1)
 	fmt.Printf("%+v\n", *list.tasks[0])
 	fmt.Println(len(list.tasks))

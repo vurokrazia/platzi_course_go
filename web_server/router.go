@@ -15,6 +15,17 @@ func NewRouter() *Router {
 	}
 }
 
+func (r *Router) FindHandler(path string) (http.HandlerFunc, bool)  {
+	handler, exist := r.rules[path]
+	return handler, exist
+}
+
 func (r *Router) ServeHTTP(w http.ResponseWriter, request *http.Request) {
-	fmt.Fprint(w, "Hello World")
+	// fmt.Fprint(w, "Hello World")
+	handler, exist := r.FindHandler(request.URL.path)
+	if !exist {
+		w.WriteHeader(http.StatusNotFound)
+		return
+	}
+	handler(w, request)
 }
